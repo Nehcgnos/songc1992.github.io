@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="宋晨晨晨晨">
 <meta property="og:description" content="最近添加了消息推送的设置功能，在上传给自己服务器推送状态的同时，也要同时设置环信的推送设置。下面代码是环信设置免打扰的几个 type ，通过 EMPushOptions 的 noDisturbStatus 属性设置。
 12345typedef enum&amp;#123;    EMPushNoDisturbStatusDay = 0,   /*! \~chinese 全天免打扰 */    EMPush">
-<meta property="og:updated_time" content="2017-04-09T09:49:54.000Z">
+<meta property="og:updated_time" content="2017-05-07T07:30:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="环信推送免打扰设置">
 <meta name="twitter:description" content="最近添加了消息推送的设置功能，在上传给自己服务器推送状态的同时，也要同时设置环信的推送设置。下面代码是环信设置免打扰的几个 type ，通过 EMPushOptions 的 noDisturbStatus 属性设置。
@@ -156,6 +156,7 @@
       
         <p>最近添加了消息推送的设置功能，在上传给自己服务器推送状态的同时，也要同时设置环信的推送设置。<br>下面代码是环信设置免打扰的几个 type ，通过 EMPushOptions 的 noDisturbStatus 属性设置。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">typedef enum&#123;</div><div class="line">    EMPushNoDisturbStatusDay = 0,   /*! \~chinese 全天免打扰 */</div><div class="line">    EMPushNoDisturbStatusCustom,    /*! \~chinese 自定义时间段免打扰 */</div><div class="line">    EMPushNoDisturbStatusClose,     /*! \~chinese 关闭免打扰 */</div><div class="line">&#125;EMPushNoDisturbStatus;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>几个参数很好理解，可是真正设置以后发现了问题，在调用 <code>[[EMClient sharedClient] updatePushOptionsToServer];</code> 方法把设置好的参数上传环信服务器之后，再从服务器读取的时候，我上传的明明是<code>EMPushNoDisturbStatusDay</code> , down 下来的却是 <code>EMPushNoDisturbStatusCustom</code> 。<br>最后也不说中间过程了，直接说解决办法：<br>就是环信是把全天免打扰<code>EMPushNoDisturbStatusDay</code>也归到了自定义时段类型，所以要设置全天免打扰的时候，也设置成<code>EMPushNoDisturbStatusCustom</code>，然后把起止时间这样设置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">EMPushOptions *pushOptions = [[EMClient sharedClient] pushOptions];</div><div class="line">pushOptions.noDisturbStatus = EMPushNoDisturbStatusCustom;</div><div class="line">pushOptions.noDisturbingStartH = 0;</div><div class="line">pushOptions.noDisturbingEndH = 24;</div><div class="line">[[EMClient sharedClient] updatePushOptionsToServer];</div></pre></td></tr></table></figure>
 
