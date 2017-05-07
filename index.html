@@ -215,15 +215,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>公司项目已经上线了一段时间，开发到现在一直忙于业务逻辑的编写，忽视了 App 性能的优化。目前项目业务已经大体成型，我就抽出一部分时间来对iOS客户端进行性能优化。第一步先从首页的列表性能优化开始.</p>
-<h2 id="第一次尝试"><a href="#第一次尝试" class="headerlink" title="第一次尝试"></a>第一次尝试</h2><p>之前项目中所有 UI 布局全是用 AutoLayout 来完成，用的 <a href="https://github.com/SnapKit/Masonry">Masonry</a> ，使用 AutoLayout 确实在开发速度上面有很大优势，但是有利有弊，弊端就是会对流畅性要求较高的页面造成性能上的影响.所以这次优化我从两点出发来进行尝试：</p>
+<h2 id="第一次尝试"><a href="#第一次尝试" class="headerlink" title="第一次尝试"></a>第一次尝试</h2><p>之前项目中所有 UI 布局全是用 AutoLayout 来完成，用的 <a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a> ，使用 AutoLayout 确实在开发速度上面有很大优势，但是有利有弊，弊端就是会对流畅性要求较高的页面造成性能上的影响.所以这次优化我从两点出发来进行尝试：</p>
 <ul>
 <li>把首页的布局方法从 AutoLayout 改为传统的 Frame 布局。</li>
-<li>用 <a href="https://github.com/facebook/AsyncDisplayKit">AsyncDisplayKit</a> 中的控件来替换 UIKit 控件。</li>
+<li>用 <a href="https://github.com/facebook/AsyncDisplayKit" target="_blank" rel="external">AsyncDisplayKit</a> 中的控件来替换 UIKit 控件。</li>
 </ul>
 <h5 id="AsyncDisplayKit"><a href="#AsyncDisplayKit" class="headerlink" title="AsyncDisplayKit"></a>AsyncDisplayKit</h5><p>这是由 Facebook 开源的一款 UI 框架，里面的控件可以替换很多基本的 UIKit 控件，比如<code>ASImageNode</code>,<code>ASNetworkImageNode</code>,<code>ASControlNode</code>等，还有<code>ASTableView</code>。但是如果使用最后这两个来替换 UITableView 的话，学习成本会增加很多，所以我只是替换了简单的UI控件。</p>
-        
-          <a class="article-more-a" href="/2017/03/24/OptimizeTableView/#more">more >></a>
-        
+<h5 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h5><p>这次优化完毕之后，能感觉到比之前滑动要流畅，用 Instrument 看了一下，画面能到54、55帧左右。但是效果并不是特别理想，慢速滑动的话还好，滑动速度加快的话，页面还是会感觉一顿一顿的，所以说这次优化可以说是以失败告终。</p>
+<h2 id="第二次优化"><a href="#第二次优化" class="headerlink" title="第二次优化"></a>第二次优化</h2><p>这次优化主要参考 <a href="https://github.com/ibireme/YYKit" target="_blank" rel="external">YYKit</a> 作者 <a href="https://github.com/ibireme" target="_blank" rel="external">ibireme</a> 大神写的一篇文章《<a href="http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">iOS 保持界面流畅的技巧</a>》。这篇文章画面掉帧的原理再到 YYKit Demo 优化方法都写的很详细，读完一遍以后，虽然对于原理的地方没有记得很清楚，但是心中大概有了这次优化的方向。就是要把文章做在Cell显示内容之前，也就是提前计算好所有的 layout ，以及提前渲染好需要用的图片和富文本。<br>优化之前先看一下项目原始的 UI 层次<br><img src="http://ondlzcvbx.bkt.clouddn.com/TableViewOptimize-image1.png" alt="优化之前的 Cell 视图结构"><br>    未完待续…</p>
+
       
 
       
