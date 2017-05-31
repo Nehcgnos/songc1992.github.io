@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="">
-  <title>Archives | 宋晨晨晨晨</title>
+  <title>iOS 系统媒体音量获取与改变 | 宋晨晨晨晨</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="宋晨晨晨晨">
-<meta property="og:url" content="/archives/index.html">
+  <meta name="description" content="获取当前系统媒体播放音量12AVAudioSession *audioSession = [AVAudioSession sharedInstance];CGFloat systemVolume = audioSession.outputVolume;
+调整系统音量12@property (nonatomic, strong) MPVolumeView *volumeView;@property">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 系统媒体音量获取与改变">
+<meta property="og:url" content="/2017/05/31/iOSSystemMediaPlayVolume/index.html">
 <meta property="og:site_name" content="宋晨晨晨晨">
+<meta property="og:description" content="获取当前系统媒体播放音量12AVAudioSession *audioSession = [AVAudioSession sharedInstance];CGFloat systemVolume = audioSession.outputVolume;
+调整系统音量12@property (nonatomic, strong) MPVolumeView *volumeView;@property">
+<meta property="og:updated_time" content="2017-05-31T14:40:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="宋晨晨晨晨">
+<meta name="twitter:title" content="iOS 系统媒体音量获取与改变">
+<meta name="twitter:description" content="获取当前系统媒体播放音量12AVAudioSession *audioSession = [AVAudioSession sharedInstance];CGFloat systemVolume = audioSession.outputVolume;
+调整系统音量12@property (nonatomic, strong) MPVolumeView *volumeView;@property">
   
     <link rel="alternative" href="/atom.xml" title="宋晨晨晨晨" type="application/atom+xml">
   
@@ -127,201 +134,68 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-iOSSystemMediaPlayVolume" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      iOS 系统媒体音量获取与改变
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/31/iOSSystemMediaPlayVolume/" class="archive-article-date">
+
+        
+        <a href="/2017/05/31/iOSSystemMediaPlayVolume/" class="archive-article-date">
   	<time datetime="2017-05-31T14:33:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-31</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/31/iOSSystemMediaPlayVolume/">iOS 系统媒体音量获取与改变</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>获取当前系统媒体播放音量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AVAudioSession *audioSession = [AVAudioSession sharedInstance];</div><div class="line">CGFloat systemVolume = audioSession.outputVolume;</div></pre></td></tr></table></figure></p>
+<p>调整系统音量<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">MPVolumeView</span> *volumeView;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">UISlider</span> *mpVolumeSlider;</div></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">_volumeView = [[<span class="built_in">MPVolumeView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">-1000</span>, <span class="number">-100</span>, <span class="number">100</span>, <span class="number">100</span>)];</div><div class="line">[_volumeView setShowsVolumeSlider:<span class="literal">YES</span>];</div><div class="line">_volumeView.showsRouteButton = <span class="literal">NO</span>;</div><div class="line">[_volumeView sizeToFit];</div><div class="line">[<span class="keyword">self</span> addSubview:_volumeView];</div><div class="line">[_volumeView userActivity];</div><div class="line"><span class="keyword">for</span> (<span class="built_in">UIView</span> *subView <span class="keyword">in</span> [_volumeView subviews]) &#123;</div><div class="line">   <span class="keyword">if</span> ([subView.class.description isEqualToString:<span class="string">@"MPVolumeSlider"</span>])&#123;</div><div class="line">      _mpVolumeSlider = (<span class="built_in">UISlider</span>*)subView;</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/25/iOSArchiveShellCode/" class="archive-article-date">
-  	<time datetime="2017-05-25T09:00:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-25</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/25/iOSArchiveShellCode/">iOS 自动打包脚本代码</a>
-    </h1>
+  
+    <a href="/2017/05/25/iOSArchiveShellCode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS 自动打包脚本代码</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/30/HuanXinNoDisturbSetting/" class="archive-article-date">
-  	<time datetime="2017-03-30T11:05:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/30/HuanXinNoDisturbSetting/">环信推送免打扰设置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/24/OptimizeTableView/" class="archive-article-date">
-  	<time datetime="2017-03-24T14:34:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/24/OptimizeTableView/">UITableView 性能优化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/20/Hello-World/" class="archive-article-date">
-  	<time datetime="2017-03-20T03:40:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/20/Hello-World/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Daily</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -344,8 +218,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
