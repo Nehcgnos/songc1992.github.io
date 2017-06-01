@@ -342,8 +342,9 @@
 </ul>
 <h5 id="AsyncDisplayKit"><a href="#AsyncDisplayKit" class="headerlink" title="AsyncDisplayKit"></a>AsyncDisplayKit</h5><p>这是由 Facebook 开源的一款 UI 框架，里面的控件可以替换很多基本的 UIKit 控件，比如<code>ASImageNode</code>,<code>ASNetworkImageNode</code>,<code>ASControlNode</code>等，还有<code>ASTableView</code>。但是如果使用最后这两个来替换 UITableView 的话，学习成本会增加很多，所以我只是替换了简单的UI控件。</p>
 <h5 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h5><p>这次优化完毕之后，能感觉到比之前滑动要流畅，用 Instrument 看了一下，画面能到54、55帧左右。但是效果并不是特别理想，慢速滑动的话还好，滑动速度加快的话，页面还是会感觉一顿一顿的，所以说这次优化可以说是以失败告终。</p>
-<h2 id="第二次优化"><a href="#第二次优化" class="headerlink" title="第二次优化"></a>第二次优化</h2><p>这次优化主要参考 <a href="https://github.com/ibireme/YYKit" target="_blank" rel="external">YYKit</a> 作者 <a href="https://github.com/ibireme" target="_blank" rel="external">ibireme</a> 大神写的一篇文章《<a href="http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">iOS 保持界面流畅的技巧</a>》。这篇文章画面掉帧的原理再到 YYKit Demo 优化方法都写的很详细，读完一遍以后，虽然对于原理的地方没有记得很清楚，但是心中大概有了这次优化的方向。就是要把文章做在Cell显示内容之前，也就是提前计算好所有的 layout ，以及提前渲染好需要用的图片和富文本。<br>优化之前先看一下项目原始的 UI 层次<br><img src="http://ondlzcvbx.bkt.clouddn.com/TableViewOptimize-image1.png" alt="优化之前的 Cell 视图结构"><br>    未完…</p>
-
+<h2 id="第二次优化"><a href="#第二次优化" class="headerlink" title="第二次优化"></a>第二次优化</h2><p>这次优化主要参考 <a href="https://github.com/ibireme/YYKit" target="_blank" rel="external">YYKit</a> 作者 <a href="https://github.com/ibireme" target="_blank" rel="external">ibireme</a> 大神写的一篇文章《<a href="http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">iOS 保持界面流畅的技巧</a>》。这篇文章画面掉帧的原理再到 YYKit Demo 优化方法都写的很详细，读完一遍以后，虽然对于原理的地方没有记得很清楚，但是心中大概有了这次优化的方向。就是要把文章做在Cell显示内容之前，也就是提前计算好所有的 layout ，以及提前渲染好需要用的图片和富文本。</p>
+<pre><code>未完...
+</code></pre>
       
 
       
